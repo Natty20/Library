@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import AddUserForm from './AddBookForm'
 
 function App() {
 
@@ -144,7 +143,6 @@ function App() {
             // setDb(event.target.result);
             fetchBooks(event.target.result);
             const db = event.target.result;
-            // fetchFilms(event.target.result);
             console.log('Base de données "Library" créée avec succès.');
 
             insertBook(db, {Books});
@@ -236,27 +234,10 @@ function App() {
     }
 
     return (
-        <div className="container mt-5">
-
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">Title</label>
-                    <input type="text" className="form-control" name="title" value={currentBook.title} onChange={handleInputChange} required />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <textarea className="form-control" name="description" value={currentBook.description} onChange={handleInputChange} required></textarea>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Année</label>
-                    <input type="text" className="form-control" name="category" value={currentBook.category} onChange={handleInputChange} required />
-                </div>
-                <button type="submit" className="btn btn-primary">{editMode ? 'Mettre à jour' : 'Ajouter'}</button>
-            </form>
-
-            <table className="table mt-5">
+        <div className="container">
+            <table className="table">
                 <thead>
-                    <tr>
+                    <tr className='heads'>
                         <th>Titre</th>
                         <th>Description</th>
                         <th>Categories</th>
@@ -271,18 +252,34 @@ function App() {
                             <td>{Book.description}</td>
                             <td>{Book.category}</td>
                             <td>
-                                <button className="btn btn-warning btn-sm me-2" onClick={() => {
+                                <button className="change" onClick={() => {
                                     setEditMode(true)
                                     setCurrentBook(Book);
                                 }}>Éditer</button>
-                                <button className="btn btn-danger btn-sm" onClick={() => deleteBook(Book.id)}>Supprimer</button>
+                                <button className="dele" onClick={() => deleteBook(Book.id)}>Supprimer</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <h1 className='add'> Ajouter un utilisateur via ce formulaire</h1>
+            <form className='add' onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label className="form-label">Title</label>
+                    <input type="text" className="form-control" name="title" value={currentBook.title} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Description</label>
+                    <textarea className="form-control" name="description" value={currentBook.description} onChange={handleInputChange} required></textarea>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Année</label>
+                    <input type="text" className="form-control" name="category" value={currentBook.category} onChange={handleInputChange} required />
+                </div>
+                <button type="submit" >{editMode ? 'Mettre à jour' : 'Ajouter'}</button>
+            </form>
+
+            {/* <h1 className='add'> Ajouter un utilisateur via ce formulaire</h1> */}
             {/* <AddUserForm addBook={addBook} /> */}
         </div>
     );
